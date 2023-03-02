@@ -7,6 +7,9 @@ LEN_PBOX = 64
 def permute(input: bytes):
   temp = []
   num = int.from_bytes(input, "big")
+  
+  assert(num.bit_length() == 64)
+  
   for i in range(LEN_PBOX):
     temp.append(str((num >> PBOX[i]) & 1))
   

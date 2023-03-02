@@ -4,20 +4,25 @@ PBOX = [49, 35, 58, 14, 28, 59, 51, 9, 18, 46, 55, 19, 20, 27, 26, 32, 17, 56, 4
 
 LEN_PBOX = 64
 
-def transform(input: int):
+def permute(input: bytes):
   temp = []
+  num = int.from_bytes(input, "big")
   for i in range(LEN_PBOX):
-    temp.append(str((input >> PBOX[i]) & 1))
+    temp.append(str((num >> PBOX[i]) & 1))
   
   res = "".join(temp)
-  res = int(res, 2)
+  res = int(res, 2).to_bytes(LEN_PBOX // 8, "big")
   return res
   
 
 if __name__ == "__main__":
     num = secrets.randbits(64)
-    print(num)
-    print(bin(num))
-    temp = transform(num)
-    print(temp)
-    print(bin(temp))
+    
+    print("NUM: ", num)
+    print("BIN: ", bin(num))
+    
+    temp = permute(num.to_bytes(LEN_PBOX, "big"))
+    temp_int = int.from_bytes(temp, "big")
+    
+    print("NUM: ", temp_int)
+    print("BIN: ", bin(temp_int))

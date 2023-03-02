@@ -1,5 +1,7 @@
 from pwn import xor
+
 from cipher import Cipher
+
 
 class IES:
     __key_size = 128//8

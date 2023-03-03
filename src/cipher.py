@@ -13,10 +13,6 @@ class Cipher:
         keys = KeyScheduler(key)
         keys.skip(32)
         self.__round_keys = keys.take(self.__no_rounds)
-
-        for k in self.__round_keys:
-            print(k)
-
         self.__feistel = FeistelNetwork(
             RoundFunction().get_f(), self.__no_rounds)
 

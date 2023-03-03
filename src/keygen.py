@@ -137,7 +137,7 @@ class KeyScheduler:
             next(self)
 
     def take(self, count: int):
-        return [next(self) for _ in range(count)]
+        return [b''.join([next(self), next(self)]) for _ in range(count)]
 
 
 def rot(word: bytes):

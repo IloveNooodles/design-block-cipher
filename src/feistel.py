@@ -35,7 +35,6 @@ class FeistelNetwork:
 
     def _transform_once(self):
         round_key = self.round_keys.get()
-
         inbetween = self.map(self.right, round_key)
         next_right = xor(self.left, inbetween)
         next_left = self.right

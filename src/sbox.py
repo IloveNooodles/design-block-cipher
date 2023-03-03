@@ -34,7 +34,7 @@ SBOX = [
 ]
 
 
-def sub_byte(input: int):
+def sub_byte(byte: int):
     if type(byte) is bytes:
         byte = int.from_bytes(byte, "big")
     row = byte // (1 << 4)

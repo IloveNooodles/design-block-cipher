@@ -16,7 +16,7 @@ class RoundFunction:
         left = self._permute(left)
         right = self._substitute(right)
         concat = b"".join([left, right])
-        left, right = self._slice_box(input, keys[1])
+        left, right = self._slice_box(concat, keys[1])
         left = self._permute(left)
         right = self._substitute(right)
         left = self._expand(left, keys[2])
@@ -27,7 +27,7 @@ class RoundFunction:
         assert(len(key) == 2)
         assert(len(input) == 8)
         
-        key_binary = bin(int.from_bytes(key, "big"))[2:]
+        key_binary = format(int.from_bytes(key, "big"), '#018b')[2:]
         n = 64
         a = int(key_binary[:6], 2)
         init = int(key_binary[6:12], 2)

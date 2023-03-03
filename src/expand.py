@@ -1,6 +1,3 @@
-from secrets import choice, randbelow, randbits
-
-
 # expand 32bit input to 64bit output
 def expand(input: bytes, key: bytes) -> bytes: 
   assert(len(input) == 4)
@@ -20,9 +17,8 @@ def expand(input: bytes, key: bytes) -> bytes:
   key_shift_count = 0
   
   temp = []
-  for _ in range(64):
-      operation = choice(OPTIONS)
-      OPTIONS.remove(operation)
+  for i in range(64):
+      operation = OPTIONS[i%len(OPTIONS)] # this
       if operation == 0:
           temp.append(str((input_int >> input_shift_count) & 1))
           input_shift_count += 1
@@ -30,7 +26,7 @@ def expand(input: bytes, key: bytes) -> bytes:
           temp.append(str((key_int >> key_shift_count) & 1))
           key_shift_count += 1
       else:
-          rand_num = randbelow(32)
+          rand_num =(int.from_bytes(key, "big")+i) % 32
           to_add = (key_int) ^ (input_int << rand_num)
           temp.append(str(to_add & 1))
   

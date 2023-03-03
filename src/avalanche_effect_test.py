@@ -3,24 +3,34 @@ from pwn import xor, bits_str
 from random import randbytes, randint
 
 # ? Variables, adjust as necessary
-key = b'\x97\x13\xfb\xec\x1f5k\xc1|\xff3\xaf5\xb2b\x0c'
+key = b'b' * 16
 iv = randbytes(16)
 cipher = IES(key, IES.MODE_CBC, iv)
-byte_count = 128
+byte_count = 16
 
 # ? May want to use determined input
 payload = randbytes(byte_count)
 error_byte_index = randint(0, byte_count - 1)
 error_bit_index = randint(0, 7)
 
+print(f"Payload: {payload}\n")
+
 error_mask = 1 << error_bit_index
 error_payload = bytearray(payload)
 error_payload[error_byte_index] ^= error_mask
 # ? May want to use determined error
-error_payload = bytearray(error_payload)
+error_payload = bytes(error_payload)
+
+print(f"Error payload: {error_payload}\n")
+
 
 encrypted_payload = cipher.encrypt(payload)
 encrypted_error_payload = cipher.encrypt(error_payload)
+
+
+print(f"Encrypted: {encrypted_payload}\n")
+print(f"Encrypted error: {encrypted_error_payload}\n")
+
 
 symdiff = xor(encrypted_payload, encrypted_error_payload)
 

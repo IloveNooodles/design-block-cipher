@@ -2,15 +2,23 @@ from roundFunction import RoundFunction
 from keygen import KeyScheduler
 from feistel import FeistelNetwork
 
+
 class Cipher:
     __key_size = 128//8
     __block_size = 128//8
     __no_rounds = 16
 
     def __init__(self, key: bytes):
-        assert(len(key)==self.__key_size)
-        self.__round_keys = KeyScheduler(key).take(self.__no_rounds)
-        self.__feistel = FeistelNetwork(RoundFunction().get_f(), self.__no_rounds)
+        assert(len(key) == self.__key_size)
+        keys = KeyScheduler(key)
+        keys.skip(32)
+        self.__round_keys = keys.take(self.__no_rounds)
+
+        for k in self.__round_keys:
+            print(k)
+
+        self.__feistel = FeistelNetwork(
+            RoundFunction().get_f(), self.__no_rounds)
 
     def encrypt(self, data: bytes):
         assert(len(data) == self.__block_size)

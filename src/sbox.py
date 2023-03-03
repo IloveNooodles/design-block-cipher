@@ -34,9 +34,21 @@ SBOX = [
 ]
 
 
-def sub_byte(byte: bytes | int):
+def sub_byte(input: int):
     if type(byte) is bytes:
         byte = int.from_bytes(byte, "big")
     row = byte // (1 << 4)
     col = byte % (1 << 4)
     return SBOX[row][col]
+
+def sub_bytes(input: bytes):
+    res = bytearray()
+    assert(len(input)==4)
+    for byte in input:
+        if type(byte) is bytes:
+            byte = int.from_bytes(byte, "big")
+        row = byte // (1 << 4)
+        col = byte % (1 << 4)
+        res += int(SBOX[row][col]).to_bytes(1, "big") 
+    assert(len(res)==4)
+    return bytes(res)

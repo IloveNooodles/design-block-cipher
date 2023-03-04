@@ -1,6 +1,8 @@
-from IES import IES
-from pwn import xor, bits_str
 from random import randbytes, randint
+
+from pwn import bits_str, xor
+
+from src.IES import IES
 
 # ? Variables, adjust as necessary
 key = randbytes(16)

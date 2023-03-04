@@ -2,6 +2,12 @@
 
 IES is a block cipher that created based on AES and DES and feistel network. It uses the Sbox from AES and Feistel network from DES.
 
+|   NIM    |              Name              |
+| :------: | :----------------------------: |
+| 13520029 | Muhammad Garebaldhie ER Rahman |
+| 13520163 |     Frederik Imanuel Louis     |
+| 13520166 |       Raden Rifqi Rahman       |
+
 ## How does IES work
 
 Generally IES have 5 components

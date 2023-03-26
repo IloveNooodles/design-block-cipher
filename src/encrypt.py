@@ -1,6 +1,7 @@
 from argparse import ArgumentParser
-from IES import IES
 from os import path
+
+from IES import IES
 
 argparser = ArgumentParser()
 argparser.add_argument("filepath", type=str)
@@ -8,7 +9,7 @@ argparser.add_argument("key", metavar="key-file-or-phrase", type=str)
 argparser.add_argument("-M", "--mode", type=str)
 argparser.add_argument("-iv", metavar="initial-vector-file", type=str)
 argparser.add_argument(
-    "-o", "--outfile", metavar="initial-vector-file", type=str, default="")
+    "-o", "--outfile", metavar="output-vector-file", type=str, default="")
 
 arg = argparser.parse_args()
 
